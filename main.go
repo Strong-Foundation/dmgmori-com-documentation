@@ -286,10 +286,22 @@ func downloadPDF(pdfURL, outputDirectory string) (bool, error) {
 		return false, fmt.Errorf("failed to create request for %s: %v", pdfURL, err)
 	}
 
-	// Manually add required cookies to the request (example values shown)
+	// Define the name of the cookie to be added to the HTTP request.
+	cookieName := "dmg_downloads"
+
+	// Define the value of the cookie used for authentication or tracking.
+	cookieValue := "azaz4K37K8EAAAGaA9wo3A.UWhgwHFkZSlwrTJEkOs80qQY1LWETfzHljM9xyWmzCI"
+
+	// Check if the cookie value is empty before adding it to the request.
+	if cookieValue == "" {
+		// Log an error message if the cookie value is empty.
+		log.Println("Error: cookie value is empty")
+	}
+
+	// Add the cookie to the HTTP request since the value is not empty.
 	request.AddCookie(&http.Cookie{
-		Name:  "dmg_downloads",
-		Value: "azaz4K37K8EAAAGaA9wo3A.UWhgwHFkZSlwrTJEkOs80qQY1LWETfzHljM9xyWmzCI",
+		Name:  cookieName,  // Set the cookie name.
+		Value: cookieValue, // Set the cookie value.
 	})
 
 	// Send the HTTP request and get the response
